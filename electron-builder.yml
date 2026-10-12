@@ -1,0 +1,68 @@
+appId: com.torrential.desktop
+productName: Torrential
+copyright: Torrential
+
+directories:
+  output: release
+  buildResources: build
+
+# Electron по умолчанию тащит ~50 языковых файлов (~50 МБ) — оставляем два.
+electronLanguages:
+  - ru
+  - en
+
+# В asar кладём только оболочку и её preload; движок живёт в resources,
+# потому что запускается отдельным процессом и не должен быть упакован.
+files:
+  - electron/main.cjs
+  - electron/preload.cjs
+  - package.json
+  # Движок живёт в resources/engine со своими node_modules — в asar они не нужны,
+  # иначе electron-builder продублирует туда ~30 МБ зависимостей.
+  - '!node_modules/**'
+
+extraResources:
+  - from: build/icon.png
+    to: icon.png
+
+# Движок копирует хук afterPack: electron-builder вырезает node_modules
+# из extraResources, а движку они нужны для резолва express/ws/webtorrent.
+afterPack: scripts/after-pack.cjs
+
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: portable
+      arch: [x64]
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Torrential
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderIcon: build/icon.ico
+  deleteAppDataOnUninstall: false
+  artifactName: Torrential-${version}-setup.${ext}
+
+portable:
+  artifactName: Torrential-${version}-portable.${ext}
+
+mac:
+  icon: build/icon.png
+  category: public.app-category.utilities
+  target: [dmg]
+
+linux:
+  icon: build/icon.png
+  category: Network
+  target: [AppImage]
+
+compression: maximum
+removePackageScripts: true
+npmRebuild: false

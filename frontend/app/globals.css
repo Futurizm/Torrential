@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ink-950 text-zinc-300 antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  ::selection {
+    @apply bg-indigo-500/30 text-white;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.12) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full border-[3px] border-solid border-transparent bg-white/10 bg-clip-content;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-white/20 bg-clip-content;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-5 sm:px-8;
+  }
+
+  /* Стеклянная карточка — база визуального языка */
+  .glass {
+    @apply border border-white/[0.07] bg-white/[0.025] backdrop-blur-xl;
+  }
+
+  .card-hover {
+    @apply transition-colors duration-300 hover:border-white/[0.14] hover:bg-white/[0.045];
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-br from-white via-white to-zinc-500 bg-clip-text text-transparent;
+  }
+
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950;
+  }
+
+  .btn {
+    @apply focus-ring inline-flex select-none items-center justify-center gap-2 rounded-xl text-sm font-medium transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply btn bg-indigo-500 px-5 py-3 text-white shadow-lg shadow-indigo-500/25 hover:bg-indigo-400 hover:shadow-indigo-500/35 active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply btn border border-white/[0.08] bg-white/[0.03] px-5 py-3 text-zinc-200 hover:border-white/[0.16] hover:bg-white/[0.06] hover:text-white active:scale-[0.98];
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-zinc-400;
+  }
+
+  /* Рамка «окна приложения» вокруг скриншотов */
+  .window-frame {
+    @apply overflow-hidden rounded-2xl border border-white/[0.08] bg-ink-900 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.9)];
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}

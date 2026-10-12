@@ -1,0 +1,17 @@
+node_modules/
+dist/
+dist-server/
+release/
+.stage/
+build/
+*.log
+.DS_Store
+.env
+downloads/
+.torrential/
+.vite/
+
+# Сайт (frontend/)
+frontend/.next/
+frontend/node_modules/
+frontend/.env*.local
