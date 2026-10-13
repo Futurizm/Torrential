@@ -7,13 +7,13 @@
  */
 const BASE = (
   process.env.NEXT_PUBLIC_DOWNLOAD_BASE ??
-  'https://github.com/your-org/torrential/releases/download/v1.0.0'
+  'https://github.com/Futurizm/Torrential/releases/tag/torrent-client'
 ).replace(/\/$/, '')
 
 export const VERSION = process.env.NEXT_PUBLIC_VERSION ?? '1.0.0'
 
 export const downloads = {
-  installer: `${BASE}/Torrential-${VERSION}-setup.exe`,
-  portable: `${BASE}/Torrential-${VERSION}-portable.exe`,
+  installer: `${BASE}`,
+  portable: `${BASE}`,
   base: BASE,
 } as const
